@@ -85,7 +85,7 @@ def train(args):
             labels = labels.to(device)
             t = diffusion.sample_timesteps(images.shape[0]).to(device)
             x_t, noise = diffusion.noise_images(images, t)
-            if np.random.random() < 0.1:
+            if np.random.random() < args.cond_threshold:
                 labels = None
             predicted_noise = model(x_t, t, labels)
             loss = mse(noise, predicted_noise)
